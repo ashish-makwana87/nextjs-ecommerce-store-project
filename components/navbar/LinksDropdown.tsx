@@ -22,7 +22,7 @@ function LinksDropdown() {
           <FaBars />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-36" align="start" >
+      <DropdownMenuContent className="w-36" align="start" sideOffset={10} >
         {NavLinks.map((item) => {
           return (
             <DropdownMenuItem key={item.label}>
