@@ -1,9 +1,12 @@
+import Link from "next/link";
 import React from "react";
 
 function Logo() {
   return (
     <div>
-      <h2 className='text-2xl text-primary md:text-3xl font-bold'>STORE</h2>
+      <Link href='/' className='text-2xl text-primary md:text-3xl font-bold'>
+        STORE
+      </Link>
     </div>
   );
 }
