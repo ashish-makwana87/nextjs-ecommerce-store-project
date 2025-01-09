@@ -4,6 +4,7 @@ import Link from 'next/link';
 import React from 'react'
 import { Card, CardContent } from '../ui/card';
 import Image from 'next/image';
+import FavoriteToggleButton from './FavoriteToggleButton';
 
 function ProductsGrid({products}:{products: Product[]}) {
 
@@ -14,17 +15,23 @@ function ProductsGrid({products}:{products: Product[]}) {
      const {name, price, image, id} = product;
      const priceInDollar = formatPrice(price);
 
-     return <article key={id}> 
-      <Link href='/products' >
+     return <article key={id} className='relative'> 
+      <Link href={`/products/${product.id}`}>
       <Card>
       <CardContent className='p-4'>
       <div className='relative h-64 rounded overflow-hidden'>
-        <Image src={image} alt={name} fill className='absolute w-full rounded object-cover' />
+        <Image src={image} alt={name} fill priority className='absolute w-full rounded object-cover' />
       </div>
-      <p>{priceInDollar}</p>
+      <div className=' text-center mt-4'>
+       <h2 className='text-lg font-medium capitalize'>{name}</h2>
+       <p className='text-muted-foreground mt-2'>{priceInDollar}</p>
+      </div>
       </CardContent> 
       </Card>
       </Link>
+      <div className=' absolute top-6 right-6'>
+      <FavoriteToggleButton productId={product.id} />
+      </div>
      </article>
     })}
     </div>
