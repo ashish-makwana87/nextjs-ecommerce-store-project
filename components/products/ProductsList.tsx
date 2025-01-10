@@ -1,6 +1,8 @@
+import { Product } from '@prisma/client'
 import React from 'react'
 
-function ProductsList() {
+function ProductsList({products}: {products: Product[]}) {
+  
   return (
     <div>ProductsList</div>
   )
