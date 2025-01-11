@@ -1,10 +1,8 @@
 import { Product } from "@prisma/client";
 import Link from "next/link";
-import React from "react";
 import { Card, CardContent } from "../ui/card";
 import Image from "next/image";
 import FavoriteToggleButton from "./FavoriteToggleButton";
-import { Button } from "../ui/button";
 import { formatPrice } from "@/utils/format";
 
 function ProductsList({ products }: { products: Product[] }) {

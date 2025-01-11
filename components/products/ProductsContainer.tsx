@@ -9,12 +9,12 @@ import { Separator } from '../ui/separator';
 
 async function ProductsContainer({layout, search}: {layout: string, search: string}) {
  
- const products = await fetchAllProducts()
+ const products = await fetchAllProducts({search})
  const totalProducts = products.length; 
  const searchTerm = search ? `&search=${search}` : ''; 
 
   return (
-    <section>
+    <section >
       <div className='flex items-center justify-between'>
       <h2 className='head-3'>{totalProducts} product{totalProducts > 1 && 's'}</h2>
       <div className='flex gap-x-2'>
