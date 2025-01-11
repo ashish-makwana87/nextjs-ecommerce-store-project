@@ -19,7 +19,7 @@ function ProductsGrid({products}:{products: Product[]}) {
       <Link href={`/products/${product.id}`}>
       <Card>
       <CardContent className='p-4'>
-      <div className='relative h-64 rounded overflow-hidden'>
+      <div className='relative h-56 rounded overflow-hidden'>
         <Image src={image} alt={name} fill priority className='absolute w-full rounded object-cover' />
       </div>
       <div className=' text-center mt-4'>

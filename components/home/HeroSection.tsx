@@ -7,7 +7,7 @@ function HeroSection() {
   return (
     <section className='grid md:grid-cols-2 gap-8 items-center pb-16'>
       <div className='order-1 flex flex-col gap-y-4 md:gap-y-6'>
-        <h1 className='text-2xl max-w-2xl md:text-3xl lg:text-4xl font-bold tracking-wide '>
+        <h1 className='head-1 max-w-2xl'>
           NextJS E-commerce Store Project
         </h1>
         <p className='text-md max-w-xl md:text-lg font-normal leading-7 text-muted-foreground'>

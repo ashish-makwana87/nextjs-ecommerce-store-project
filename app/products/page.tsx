@@ -7,9 +7,9 @@ function ProductsPage({searchParams}: {searchParams: {layout?: string, search?:s
   const layout = searchParams.layout || 'grid'; 
   const search = searchParams.search || ''
  
-  return <div>
+  return <section className='alignment mt-10 md:mt-20'>
     <ProductsContainer layout={layout} search={search} />
-  </div>;
+  </section>;
 }
 
 export default ProductsPage;
