@@ -7,7 +7,7 @@ import { Suspense } from "react";
 export default function Home() {
   
   return (
-    <div className="alignment mt-10 md:mt-20">
+    <div className="alignment mt-8 md:mt-16">
       <HeroSection />
       <Suspense fallback={<LoadingContainer />}>
       <FeaturedProducts />

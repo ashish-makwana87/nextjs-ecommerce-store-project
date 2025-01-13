@@ -10,7 +10,7 @@ function NavBar() {
       <div className='alignment flex flex-col md:flex-row md:justify-between md:items-center py-6 gap-y-3'>
         <Logo />
         <Suspense>
-        <NavSearch />
+          <NavSearch />
         </Suspense>
         <div className='mt-2 flex gap-x-4 items-center md:mt-0'>
           <CartButton />
