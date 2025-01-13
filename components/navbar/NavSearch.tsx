@@ -7,11 +7,10 @@ import { useDebouncedCallback } from "use-debounce";
 
 function NavSearch() {
   const searchParams = useSearchParams();
-  console.log(searchParams);
-
   const { replace } = useRouter();
+  
   const [search, setSearch] = useState(
-    searchParams.get("search")?.toString() || ""
+    searchParams.get("search") || ""
   );
 
   const handleSearch = useDebouncedCallback((value: string) => {
