@@ -13,7 +13,7 @@ function HeroSection() {
           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nihil
           voluptatem placeat consequatur quo doloremque? Ea recusandae porro
           explicabo minima animi culpa, nesciunt similique molestiae voluptatem
-          cumque placeat blanditiis magnam numquam!
+          cumque placeat blanditiis magnam numquamn!
         </p>
         <Button asChild size='lg' className='w-32 md:w-36'>
           <Link href='/products' className='text-base md:text-lg'>
