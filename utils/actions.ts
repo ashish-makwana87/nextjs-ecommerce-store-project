@@ -33,11 +33,8 @@ export const getSingleProduct = async (productId: string) => {
       id: productId,
     },
   });
-
-  if (!product) {
-    redirect("/products");
-    return;
-  }
+ 
+  if (!product) redirect('/products')
 
   return product;
 };
