@@ -12,6 +12,7 @@ import NavLinks from "@/utils/links";
 import Link from "next/link";
 import UserIcon from "./UserIcon";
 import { SignedIn, SignedOut, SignInButton, SignUpButton } from "@clerk/nextjs";
+import SignoutLink from "./SignoutLink";
 
 function LinksDropdown() {
   return (
@@ -49,6 +50,10 @@ function LinksDropdown() {
               </DropdownMenuItem>
             );
           })}
+          <DropdownMenuSeparator />
+          <DropdownMenuItem>
+            <SignoutLink />
+          </DropdownMenuItem>
         </SignedIn>
       </DropdownMenuContent>
     </DropdownMenu>
