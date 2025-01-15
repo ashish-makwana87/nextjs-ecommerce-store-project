@@ -5,7 +5,6 @@ const isPublicRoute = createRouteMatcher(['/', '/products(.*)', '/about'])
 export default clerkMiddleware((auth, req) => {
  
  if(!isPublicRoute(req)) auth().protect();
-
 });
 
 export const config = {
