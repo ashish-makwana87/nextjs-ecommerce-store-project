@@ -18,7 +18,7 @@ function Sidebar() {
             key={item.label}
             variant={activePath ? "default" : 'ghost'}
             asChild
-            className='mb-3 w-full capitalize text-start text-base md:text-lg'
+            className='mb-3 p-6 mr-3 w-2/3 md:w-full justify-start md:justify-center capitalize text-base'
           >
             <Link href={item.href}>{item.label}</Link>
           </Button>

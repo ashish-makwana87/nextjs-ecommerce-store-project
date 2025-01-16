@@ -13,8 +13,14 @@ import Link from "next/link";
 import UserIcon from "./UserIcon";
 import { SignedIn, SignedOut, SignInButton, SignUpButton } from "@clerk/nextjs";
 import SignoutLink from "./SignoutLink";
+import { auth } from "@clerk/nextjs/server";
+
+// dropdown stays open after navigating to pages, we can use "use client" and implement "usePathname" hook to resolve it. --code-- const pathName = usePathname() -- <DropdownMenu key={pathName}> --code-- But then we can't import server only component "UserIcon" inside client component.
 
 function LinksDropdown() {
+
+ const isAdmin = auth().userId === process.env.ADMIN_USER_ID
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -42,6 +48,11 @@ function LinksDropdown() {
         </SignedOut>
         <SignedIn>
           {NavLinks.map((item) => {
+             
+             if(item.label === 'dashboard' && !isAdmin) {
+              return null
+             }
+
             return (
               <DropdownMenuItem key={item.label}>
                 <Link href={item.href} className=' capitalize w-full'>
