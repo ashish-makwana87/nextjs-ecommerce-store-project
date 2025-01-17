@@ -1,3 +1,4 @@
+'use server'
 import db from "@/utils/db";
 import { redirect } from "next/navigation";
 
@@ -38,3 +39,10 @@ export const getSingleProduct = async (productId: string) => {
 
   return product;
 };
+
+
+export const createProductAction = async (initialState, formData) => {
+
+return {message: 'hello'}
+
+}

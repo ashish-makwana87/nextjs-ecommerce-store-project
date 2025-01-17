@@ -5,7 +5,7 @@ import { Separator } from '@/components/ui/separator'
 function DashboardLayout({children}:{children: React.ReactNode}) {
 
   return (
-    <section className='alignment mt-8 md:mt-16'>
+    <section className='alignment my-8 md:my-16'>
     <h1 className='head-2 mb-4'>Dashboard</h1>
     <Separator />
     <div className='mt-6 grid md:grid-cols-12 gap-y-8 gap-x-12 '>

@@ -16,7 +16,7 @@ function Sidebar() {
         return (
           <Button
             key={item.label}
-            variant={activePath ? "default" : 'ghost'}
+            variant={activePath ? "default" : 'outline'}
             asChild
             className='mb-3 p-6 mr-3 w-2/3 md:w-full justify-start md:justify-center capitalize text-base'
           >

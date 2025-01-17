@@ -5,13 +5,10 @@ import FormInput from "@/components/form/FormInput";
 import TextAreaInput from "@/components/form/TextAreaInput";
 import PriceInput from "@/components/form/PriceInput";
 import ImageInput from "@/components/form/ImageInput";
-
-const createProductAction = async (formData: FormData) => {
-  "use server";
-
-  const name = formData.get("name") as string;
-  console.log(name);
-};
+import CheckboxInput from "@/components/form/CheckboxInput";
+import { SubmitBtn } from "@/components/form/Buttons";
+import { createProductAction } from "@/utils/actions";
+import FormContainer from "@/components/form/FormContainer";
 
 function CreateProductPage() {
   const name = faker.commerce.productName();
@@ -22,8 +19,8 @@ function CreateProductPage() {
     <section>
       <h2 className='head-3 mb-4'>create product</h2>
       <div className='border p-8 rounded-md '>
-        <form action={createProductAction}>
-          <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-x-4'>
+        <FormContainer action={createProductAction}>
+          <div className='grid md:grid-cols-2 gap-x-4'>
             <FormInput
               name='name'
               label='product name'
@@ -40,8 +37,13 @@ function CreateProductPage() {
             <ImageInput />
           </div>
           <TextAreaInput name='description' defaultValue={description} />
-          <Button type='submit'>Submit</Button>
-        </form>
+          <div className='mt-4'>
+            <CheckboxInput name='featured' label='featured' />
+          </div>
+          <div className='mt-6'>
+            <SubmitBtn />
+          </div>
+        </FormContainer>
       </div>
     </section>
   );
