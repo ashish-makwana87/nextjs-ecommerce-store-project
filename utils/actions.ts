@@ -2,8 +2,9 @@
 import db from "@/utils/db";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
+import { imageSchema, productSchema, validateWithZodSchema } from "./schemas";
 
-const getUserId = async () => {
+const getClerkId = async () => {
   const user = await currentUser();
 
   if (!user) {
@@ -14,7 +15,7 @@ const getUserId = async () => {
 
 const renderError = (error: unknown): { message: string } => {
   return {
-    message: error instanceof Error ? error.message : "there was an error",
+    message: error instanceof Error ? error.message : "there was an error...",
   };
 };
 
@@ -60,23 +61,17 @@ export const createProductAction = async (
   prevState: any,
   formData: FormData
 ): Promise<{ message: string }> => {
-  const name = formData.get("name") as string;
-  const company = formData.get("company") as string;
-  const description = formData.get("description") as string;
-  const price = Number(formData.get("price") as string);
-  const featured = Boolean(formData.get("featured") as string);
-  const user = await getUserId();
+  const rawData = Object.fromEntries(formData);
+  const validatedData = validateWithZodSchema(productSchema, rawData);
+  const file = formData.get("image") as File;
+
+  const validatedImage = validateWithZodSchema(imageSchema, { image: file });
+  console.log(validatedImage);
+
+  const user = await getClerkId();
 
   await db.product.create({
-    data: {
-      name,
-      company,
-      price,
-      description,
-      featured,
-      image: "/e1.JPG",
-      clerkId: user.id,
-    },
+    data: { ...validatedData, image: "/hero6.jpg", clerkId: user.id },
   });
 
   try {
