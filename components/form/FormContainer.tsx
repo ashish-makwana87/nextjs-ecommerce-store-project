@@ -17,8 +17,8 @@ function FormContainer({
   const { toast } = useToast();
 
   useEffect(() => {
-    if(state.message) {
-     toast({ description: state.message });
+    if (state.message) {
+      toast({ description: state.message });
     }
   }, [state]);
 
