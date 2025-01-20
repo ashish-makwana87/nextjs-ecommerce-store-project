@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { imageSchema, productSchema, validateWithZodSchema } from "./schemas";
 import { deleteImage, uploadImage } from "./supabase";
 import { revalidatePath } from "next/cache";
+import { da } from "@faker-js/faker";
 
 const getClerkId = async () => {
   const user = await currentUser();
@@ -135,7 +136,7 @@ export const updateProductAction = async (
   prevState: any,
   formData: FormData
 ): Promise<{ message: string }> => {
-  await getAdminUser()
+  await getAdminUser();
 
   try {
     const productId = formData.get("id") as string;
@@ -151,7 +152,32 @@ export const updateProductAction = async (
     return { message: "Product updated successfully" };
   } catch (error) {
     console.log(error);
-    
+
+    return renderError(error);
+  }
+};
+
+export const updateImageAction = async (
+  prevState: any,
+  formData: FormData
+): Promise<{ message: string }> => {
+  await getAdminUser();
+
+  try {
+    const file = formData.get("image") as File;
+    const oldImageUrl = formData.get("url") as string;
+    const productId = formData.get("id") as string;
+    const validatedImage = validateWithZodSchema(imageSchema, { image: file });
+    const imagePath = await uploadImage(validatedImage.image);
+    await deleteImage(oldImageUrl);
+
+    await db.product.update({
+      where: { id: productId },
+      data: { image: imagePath },
+    });
+    revalidatePath(`/admin/products/${productId}/edit`);
+    return { message: "Image updated successfully" };
+  } catch (error) {
     return renderError(error);
   }
 };
