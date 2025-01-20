@@ -14,6 +14,15 @@ const getClerkId = async () => {
   return user;
 };
 
+const getAdminUser = async () => {
+
+  const user = await getClerkId(); 
+
+  if (user.id !== process.env.ADMIN_USER_ID ) redirect('/')
+
+    return user; 
+}
+
 const renderError = (error: unknown): { message: string } => {
   return {
     message: error instanceof Error ? error.message : "there was an error...",
@@ -83,3 +92,15 @@ export const createProductAction = async (
 
   redirect("/admin/products");
 };
+
+
+export const fetchAdminProducts = async () => {
+
+ await getAdminUser(); 
+ 
+ const products = await db.product.findMany({
+  orderBy: {createdAt: 'desc'} 
+ })
+
+return products;
+} 
