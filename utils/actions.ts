@@ -3,7 +3,8 @@ import db from "@/utils/db";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { imageSchema, productSchema, validateWithZodSchema } from "./schemas";
-import { uploadImage } from "./supabase";
+import { deleteImage, uploadImage } from "./supabase";
+import { revalidatePath } from "next/cache";
 
 const getClerkId = async () => {
   const user = await currentUser();
@@ -15,13 +16,12 @@ const getClerkId = async () => {
 };
 
 const getAdminUser = async () => {
+  const user = await getClerkId();
 
-  const user = await getClerkId(); 
+  if (user.id !== process.env.ADMIN_USER_ID) redirect("/");
 
-  if (user.id !== process.env.ADMIN_USER_ID ) redirect('/')
-
-    return user; 
-}
+  return user;
+};
 
 const renderError = (error: unknown): { message: string } => {
   return {
@@ -93,14 +93,31 @@ export const createProductAction = async (
   redirect("/admin/products");
 };
 
-
 export const fetchAdminProducts = async () => {
+  await getAdminUser();
 
- await getAdminUser(); 
- 
- const products = await db.product.findMany({
-  orderBy: {createdAt: 'desc'} 
- })
+  const products = await db.product.findMany({
+    orderBy: { createdAt: "desc" },
+  });
 
-return products;
-} 
+  return products;
+};
+
+export const deleteProductAction = async (prevState: { productId: string }) => {
+  const { productId } = prevState;
+
+  try {
+    const product = await db.product.delete({
+      where: {
+        id: productId,
+      },
+    });
+
+    await deleteImage(product.image);
+    revalidatePath("/admin/products/");
+
+    return { message: "Product deleted successfully" };
+  } catch (error) {
+    return renderError(error);
+  }
+};

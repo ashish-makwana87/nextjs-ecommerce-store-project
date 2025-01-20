@@ -1,3 +1,4 @@
+import FormContainer from "@/components/form/FormContainer";
 import EmptyList from "@/components/global/EmptyList";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -9,10 +10,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { fetchAdminProducts } from "@/utils/actions";
+import { deleteProductAction, fetchAdminProducts } from "@/utils/actions";
 import { formatPrice } from "@/utils/format";
 import Link from "next/link";
-import React from "react";
 
 async function AdminProductsPage() {
   const products = await fetchAdminProducts();
@@ -54,14 +54,7 @@ async function AdminProductsPage() {
                   >
                     <Link href={`/admin/products/${item.id}/edit`}>Edit</Link>
                   </Button>
-                  <Button
-                    asChild
-                    size='sm'
-                    variant='secondary'
-                    className='bg-red-700 text-white hover:bg-red-800'
-                  >
-                    <Link href={`/admin/products/${item.id}`}>Delete</Link>
-                  </Button>
+                  <DeleteProduct productId={item.id} />
                 </TableCell>
               </TableRow>
             );
@@ -73,6 +66,23 @@ async function AdminProductsPage() {
         Total products: {products.length}
       </h4>
     </section>
+  );
+}
+
+function DeleteProduct({ productId }: { productId: string }) {
+  const deleteProduct = deleteProductAction.bind(null, { productId });
+
+  return (
+    <FormContainer action={deleteProduct}>
+      <Button
+        size='sm'
+        variant='secondary'
+        className='bg-red-700 w-full text-white hover:bg-red-800'
+        type='submit'
+      >
+        Delete
+      </Button>
+    </FormContainer>
   );
 }
 

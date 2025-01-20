@@ -21,3 +21,12 @@ export const uploadImage = async (image: File) => {
 
   return supabase.storage.from(bucket).getPublicUrl(newName).data.publicUrl;
 };
+
+
+export const deleteImage = async(url: string) => {
+ 
+  const imageUrl = url.split('/').pop(); 
+  if(!imageUrl) throw new Error('count not find image in a database')
+
+  return supabase.storage.from(bucket).remove([imageUrl]);
+}
