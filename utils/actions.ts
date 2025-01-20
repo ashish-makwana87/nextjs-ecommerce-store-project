@@ -104,6 +104,7 @@ export const fetchAdminProducts = async () => {
 };
 
 export const deleteProductAction = async (prevState: { productId: string }) => {
+  await getAdminUser();
   const { productId } = prevState;
 
   try {
@@ -118,6 +119,39 @@ export const deleteProductAction = async (prevState: { productId: string }) => {
 
     return { message: "Product deleted successfully" };
   } catch (error) {
+    return renderError(error);
+  }
+};
+
+export const fetchAdminProductDetails = async (productId: string) => {
+  await getAdminUser();
+
+  const product = await db.product.findUnique({ where: { id: productId } });
+  if (!product) redirect("/admin/products");
+  return product;
+};
+
+export const updateProductAction = async (
+  prevState: any,
+  formData: FormData
+): Promise<{ message: string }> => {
+  await getAdminUser()
+
+  try {
+    const productId = formData.get("id") as string;
+    const rawData = Object.fromEntries(formData);
+    const validatedData = validateWithZodSchema(productSchema, rawData);
+
+    await db.product.update({
+      where: { id: productId },
+      data: { ...validatedData },
+    });
+
+    revalidatePath(`admin/products/${productId}/edit`);
+    return { message: "Product updated successfully" };
+  } catch (error) {
+    console.log(error);
+    
     return renderError(error);
   }
 };
