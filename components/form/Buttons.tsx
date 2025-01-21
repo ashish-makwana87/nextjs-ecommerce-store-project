@@ -46,7 +46,6 @@ export const CardSignInButton = () => {
         variant='outline'
         className='p-2 w-8 h-8 cursor-pointer'
         type='button'
-        asChild
       >
         <FaRegHeart />
       </Button>
@@ -63,7 +62,6 @@ export const CardSubmitButton = ({ isFavorite }: { isFavorite: boolean }) => {
       variant='outline'
       className='p-2 w-8 h-8 cursor-pointer'
       type='submit'
-      asChild
     >
       {pending ? (
         <TbReload className=' animate-spin' />

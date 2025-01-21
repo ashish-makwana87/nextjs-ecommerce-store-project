@@ -1,9 +1,25 @@
-import React from 'react'
+import EmptyList from "@/components/global/EmptyList";
+import SectionTitle from "@/components/global/SectionTitle";
+import ProductsGrid from "@/components/products/ProductsGrid";
+import { fetchFavoriteProducts } from "@/utils/actions";
 
-function FavoritesPage() {
+async function FavoritesPage() {
+  const favoriteProducts = await fetchFavoriteProducts();
+
+  if (favoriteProducts.length < 1) {
+    return <EmptyList />;
+  }
+
+  const products = favoriteProducts.map((productObj) => {
+    return productObj.product;
+  });
+
   return (
-    <div>FavoritesPage</div>
-  )
+    <div className='alignment mt-10 md:mt-20'>
+      <SectionTitle text='Favorite products' />
+      <ProductsGrid products={products} />
+    </div>
+  );
 }
 
-export default FavoritesPage
+export default FavoritesPage;

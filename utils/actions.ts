@@ -187,8 +187,13 @@ export const fetchFavoriteId = async ({ productId }: { productId: string }) => {
   const user = await getClerkId();
 
   const favorite = await db.favorite.findFirst({
-    where: { id: productId, clerkId: user.id },
-    select: { id: true },
+    where: {
+      productId,
+      clerkId: user.id,
+    },
+    select: {
+      id: true,
+    },
   });
 
   return favorite?.id || null;
@@ -201,19 +206,36 @@ export const toggleFavoriteAction = async (prevState: {
 }) => {
   const { productId, favoriteId, pathname } = prevState;
   const user = await getClerkId();
- 
+
   try {
-    
-    if(favoriteId) {
-      await db.favorite.delete({where: {id: favoriteId}})
+    if (favoriteId) {
+      await db.favorite.delete({
+        where: {
+          id: favoriteId,
+        },
+      });
     } else {
-      await db.favorite.create({data: {productId: productId, clerkId: user.id}})
+      await db.favorite.create({
+        data: {
+          productId,
+          clerkId: user.id,
+        },
+      });
     }
-    revalidatePath(pathname)
-    return { message: favoriteId ? 'Removed from favorites' : 'Added to favorites' };
+
+    revalidatePath(pathname);
+    return {
+      message: favoriteId ? "Removed from favorites" : "Added to favorites",
+    };
   } catch (error) {
-    console.log(error);
-    
-    return renderError(error)
+    return renderError(error);
   }
+};
+
+export const fetchFavoriteProducts = async () => {
+  const user = await getClerkId();
+
+  const products = await db.favorite.findMany({ where: { clerkId: user.id }, select: {product: true} });
+
+  return products;
 };
