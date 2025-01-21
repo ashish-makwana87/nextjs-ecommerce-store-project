@@ -16,7 +16,7 @@ function ProductsGrid({products}:{products: Product[]}) {
      const priceInDollar = formatPrice(price);
 
      return <article key={id} className='relative'> 
-      <Link href={`/products/${product.id}`}>
+      <Link href={`/products/${id}`}>
       <Card>
       <CardContent className='p-4'>
       <div className='relative h-56 rounded overflow-hidden'>
@@ -30,7 +30,7 @@ function ProductsGrid({products}:{products: Product[]}) {
       </Card>
       </Link>
       <div className=' absolute top-6 right-6'>
-      <FavoriteToggleButton productId={product.id} />
+      <FavoriteToggleButton productId={id} />
       </div>
      </article>
     })}
