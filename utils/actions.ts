@@ -5,7 +5,6 @@ import { redirect } from "next/navigation";
 import { imageSchema, productSchema, validateWithZodSchema } from "./schemas";
 import { deleteImage, uploadImage } from "./supabase";
 import { revalidatePath } from "next/cache";
-import { da } from "@faker-js/faker";
 
 const getClerkId = async () => {
   const user = await currentUser();
@@ -175,9 +174,26 @@ export const updateImageAction = async (
       where: { id: productId },
       data: { image: imagePath },
     });
+
     revalidatePath(`/admin/products/${productId}/edit`);
+
     return { message: "Image updated successfully" };
   } catch (error) {
     return renderError(error);
   }
+};
+
+export const fetchFavoriteId = async ({ productId }: { productId: string }) => {
+  const user = await getClerkId();
+
+  const favorite = await db.favorite.findFirst({
+    where: { id: productId, clerkId: user.id },
+    select: { id: true },
+  });
+
+  return favorite?.id || null;
+};
+
+export const toggleFavoriteAction = async () => {
+  return { message: "random text" };
 };

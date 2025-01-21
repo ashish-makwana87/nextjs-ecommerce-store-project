@@ -17,8 +17,8 @@ async function EditProductPage({ params }: { params: { id: string } }) {
       <h2 className='head-3 mb-4'>create product</h2>
       <div className='border p-8 rounded-md '>
         <ImageInputContainer name={name} image={image}>
-        <input type="hidden" name='id' value={id} />
-        <input type="hidden" name='url' value={image} />
+          <input type='hidden' name='id' value={id} />
+          <input type='hidden' name='url' value={image} />
         </ImageInputContainer>
         <FormContainer action={updateProductAction}>
           <input type='hidden' name='id' value={id} />
@@ -31,7 +31,7 @@ async function EditProductPage({ params }: { params: { id: string } }) {
             />
             <FormInput
               type='text'
-              name="company"
+              name='company'
               defaultValue={company}
               label='company name'
             />

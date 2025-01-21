@@ -1,13 +1,19 @@
 import React from "react";
 import { Button } from "../ui/button";
-import { FaHeart } from "react-icons/fa6";
+import { FaRegHeart } from "react-icons/fa";
 
 function FavoriteToggleButton({ productId }: { productId: string }) {
   console.log(productId);
 
   return (
-    <Button size='icon' variant='outline' className='p-2 cursor-pointer'>
-      <FaHeart />
+    <Button
+      size='icon'
+      variant='outline'
+      className='p-2 w-8 h-8 cursor-pointer'
+      type='button'
+      asChild
+    >
+      <FaRegHeart />
     </Button>
   );
 }
