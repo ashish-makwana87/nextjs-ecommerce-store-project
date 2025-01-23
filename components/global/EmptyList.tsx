@@ -1,13 +1,11 @@
-import React from 'react'
+import React from "react";
 
-
-function EmptyList({text = 'no items found'}:{text?: string}) {
-
+function EmptyList({ text = "no items found" }: { text?: string }) {
   return (
-    <div>
-     <h2 className='text-xl'>{text}</h2>
+    <div className='alignment mt-10 md:mt-20'>
+      <h2 className='head-3'>{text}</h2>
     </div>
-  )
+  );
 }
 
-export default EmptyList
+export default EmptyList;

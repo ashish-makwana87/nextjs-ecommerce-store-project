@@ -9,10 +9,13 @@ import { SubmitBtn } from "../form/Buttons";
 import { Card } from "../ui/card";
 import RatingInput from "./RatingInput";
 import TextAreaInput from "../form/TextAreaInput";
+import { faker } from "@faker-js/faker";
 
 
 function SubmitReview({productId}: {productId: string}) {
  const [showReviewForm, setShowReviewForm] = useState(false);
+ 
+ const reviewText = faker.lorem.paragraph({ min: 7, max: 8 });
 
  const {user} = useUser();
  if(!user) return <EmptyList text="Please login to submit a review" />
@@ -26,7 +29,7 @@ function SubmitReview({productId}: {productId: string}) {
       <input type="hidden" name="authorImageUrl" value={user.imageUrl} />
       <input type="hidden" name="productId" value={productId} />
       <RatingInput name='rating' />
-      <TextAreaInput name="comment" label="feedback" defaultValue="Good quality product." />
+      <TextAreaInput name="comment" label="feedback" defaultValue={reviewText} />
       <SubmitBtn />
       </FormContainer>
       </Card>}

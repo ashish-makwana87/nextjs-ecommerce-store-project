@@ -5,11 +5,12 @@ import { TbReload } from "react-icons/tb";
 import { SignInButton } from "@clerk/nextjs";
 import { FaRegHeart } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
+import { RiDeleteBinLine } from "react-icons/ri";
 
 type btnSize = "sm" | "default" | "lg";
 
 type submitButtonProps = {
-  text?: string;
+  text?: "submit" | "button" | "reset" | undefined;
   size?: btnSize;
 };
 
@@ -20,12 +21,7 @@ export const SubmitBtn = ({
   const { pending } = useFormStatus();
 
   return (
-    <Button
-      type='submit'
-      size={size}
-      disabled={pending}
-      className=' capitalize'
-    >
+    <Button type={text} size={size} disabled={pending} className=' capitalize'>
       {pending ? (
         <>
           <TbReload className='mr-2 w-4 h-4 animate-spin' />
@@ -34,6 +30,20 @@ export const SubmitBtn = ({
       ) : (
         text
       )}
+    </Button>
+  );
+};
+
+export const IconBtn = ({ text = "submit" }: submitButtonProps) => {
+  const { pending } = useFormStatus();
+
+  return (
+    <Button
+      size='icon'
+      variant='ghost'
+      type={text}
+    >
+      {pending ? <TbReload className=' animate-spin' /> : <RiDeleteBinLine/>}
     </Button>
   );
 };

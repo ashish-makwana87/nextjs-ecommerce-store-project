@@ -5,14 +5,14 @@ import AddToCart from "@/components/singleProduct/AddToCart";
 import Breadcrumbs from "@/components/singleProduct/BreadCrumbs";
 import ProductRating from "@/components/singleProduct/ProductRating";
 import ShareButton from "@/components/singleProduct/ShareButton";
-import { getSingleProduct } from "@/utils/actions";
+import { findExistingReview, getSingleProduct } from "@/utils/actions";
 import { formatPrice } from "@/utils/format";
 import Image from "next/image";
 import React from "react";
 
 async function SingleProductPage({ params }: { params: { id: string } }) {
   const product = await getSingleProduct(params.id);
-
+  const existingReview = await findExistingReview(params.id);
   const { id, description, name, company, image, price } = product;
   const priceInDollar = formatPrice(price);
 
@@ -33,9 +33,9 @@ async function SingleProductPage({ params }: { params: { id: string } }) {
         <div>
           <div className='flex gap-x-8 items-center'>
             <h2 className='head-2'>{name}</h2>
-            <div className="flex gap-x-2 items-center">
-            <FavoriteToggleButton productId={id} />
-            <ShareButton name={name} productId={params.id} />
+            <div className='flex gap-x-2 items-center'>
+              <FavoriteToggleButton productId={id} />
+              <ShareButton name={name} productId={params.id} />
             </div>
           </div>
           <ProductRating productId={id} />
@@ -50,7 +50,7 @@ async function SingleProductPage({ params }: { params: { id: string } }) {
         </div>
       </div>
       <ProductReviews productId={id} />
-      <SubmitReview productId={id} />
+      {!existingReview && <SubmitReview productId={id} />}
     </section>
   );
 }
