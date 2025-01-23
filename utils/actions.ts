@@ -2,7 +2,12 @@
 import db from "@/utils/db";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
-import { imageSchema, productSchema, validateWithZodSchema } from "./schemas";
+import {
+  imageSchema,
+  productSchema,
+  reviewSchema,
+  validateWithZodSchema,
+} from "./schemas";
 import { deleteImage, uploadImage } from "./supabase";
 import { revalidatePath } from "next/cache";
 
@@ -235,7 +240,42 @@ export const toggleFavoriteAction = async (prevState: {
 export const fetchFavoriteProducts = async () => {
   const user = await getClerkId();
 
-  const products = await db.favorite.findMany({ where: { clerkId: user.id }, select: {product: true} });
+  const products = await db.favorite.findMany({
+    where: { clerkId: user.id },
+    select: { product: true },
+  });
 
   return products;
 };
+
+export const submitReviewAction = async (
+  prevState: any,
+  formData: FormData
+) => {
+  const user = await getClerkId();
+
+  try {
+    const rawData = Object.fromEntries(formData);
+    const validatedFields = validateWithZodSchema(reviewSchema, rawData);
+
+    await db.review.create({ data: { ...validatedFields, clerkId: user.id } });
+    revalidatePath(`/products/${validatedFields.productId}`);
+    return { message: "Review submitted successfully" };
+  } catch (error) {
+    return renderError(error);
+  }
+};
+
+export const fetchProductReviews = async (productId: string) => {
+ await getClerkId(); 
+
+ const reviews = await db.review.findMany({where: {productId}});
+ 
+ return reviews;
+};
+
+export const deleteReview = async () => {};
+
+export const findExistingReview = async () => {};
+
+export const fetchProductRating = async () => {};

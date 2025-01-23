@@ -22,6 +22,28 @@ export const productSchema = z.object({
   featured: z.coerce.boolean(),
 });
 
+export const reviewSchema = z.object({
+  productId: z
+    .string()
+    .refine((value) => value !== "", { message: "productId cannot be empty" }),
+  comment: z
+    .string()
+    .min(10, { message: "comment must be at least 10 characters long" })
+    .max(1000, { message: "comment must be less than 1000 characters" })
+    .refine((value) => value !== "", { message: "comment cannot be empty" }),
+  authorName: z
+    .string()
+    .refine((value) => value !== "", {
+      message: "author name cannot be empty",
+    }),
+  authorImageUrl: z
+    .string()
+    .refine((value) => value !== "", {
+      message: "author image cannot be empty",
+    }),
+  rating: z.coerce.number().int(),
+});
+
 export function validateWithZodSchema<T>(
   schema: ZodSchema<T>,
   data: unknown

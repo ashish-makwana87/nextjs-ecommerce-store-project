@@ -1,4 +1,6 @@
 import FavoriteToggleButton from "@/components/products/FavoriteToggleButton";
+import ProductReviews from "@/components/reviews/ProductReviews";
+import SubmitReview from "@/components/reviews/SubmitReview";
 import AddToCart from "@/components/singleProduct/AddToCart";
 import Breadcrumbs from "@/components/singleProduct/BreadCrumbs";
 import ProductRating from "@/components/singleProduct/ProductRating";
@@ -17,7 +19,7 @@ async function SingleProductPage({ params }: { params: { id: string } }) {
   return (
     <section className='alignment my-8 md:my-16'>
       <Breadcrumbs name={name} />
-      <div className='grid gap-y-6 gap-x-10 mt-4 md:grid-cols-2'>
+      <div className='grid gap-y-6 gap-x-10 mt-4 mb-8 md:mb-10 md:grid-cols-2'>
         <div>
           <Image
             className='rounded w-full h-60 md:h-full object-cover'
@@ -47,6 +49,8 @@ async function SingleProductPage({ params }: { params: { id: string } }) {
           <AddToCart productId={id} />
         </div>
       </div>
+      <ProductReviews productId={id} />
+      <SubmitReview productId={id} />
     </section>
   );
 }
