@@ -5,6 +5,7 @@ import EmptyList from "../global/EmptyList";
 import { Card, CardContent, CardHeader } from "../ui/card";
 import Image from "next/image";
 import ProductRating from "./ProductRating";
+import Comment from "./Comment";
 
 async function ProductReviews({ productId }: { productId: string }) {
   const reviews = await fetchProductReviews(productId);
@@ -36,7 +37,7 @@ async function ProductReviews({ productId }: { productId: string }) {
                 </div>
               </CardHeader>
               <CardContent>
-                <p>{review.comment}</p>
+                <Comment text={review.comment} />
               </CardContent>
             </Card>
           );

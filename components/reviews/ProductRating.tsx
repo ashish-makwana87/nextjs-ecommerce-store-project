@@ -3,8 +3,7 @@ import { FaRegStar } from "react-icons/fa";
 
 function ProductRating({ratings}:{ratings: number}) {
 
-  const booleanArr = Array.from({length: 5}, (_, index) => index + 1 <= ratings )
-  console.log(booleanArr);
+  const booleanArr = Array.from({length: 5}, (_, index) => index + 1 <= ratings );
   
   return (
     <div className='flex flex-row items-center'>
