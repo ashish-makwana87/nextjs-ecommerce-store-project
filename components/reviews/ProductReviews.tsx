@@ -1,7 +1,6 @@
 import React from "react";
 import SectionTitle from "../global/SectionTitle";
 import { fetchProductReviews } from "@/utils/actions";
-import EmptyList from "../global/EmptyList";
 import ReviewCard from "./ReviewCard";
 
 async function ProductReviews({ productId }: { productId: string }) {

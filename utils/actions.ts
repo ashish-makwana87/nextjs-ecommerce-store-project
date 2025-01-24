@@ -1,6 +1,6 @@
 "use server";
 import db from "@/utils/db";
-import { currentUser } from "@clerk/nextjs/server";
+import { auth, currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import {
   imageSchema,
@@ -322,8 +322,19 @@ export const deleteReviewAction = async (prevState: { reviewId: string }) => {
 };
 
 export const findExistingReview = async (productId: string) => {
+  const user = await getClerkId();
 
-const user = await getClerkId();
-
-return db.review.findFirst({where: {productId, clerkId: user.id }})
+  return db.review.findFirst({ where: { productId, clerkId: user.id } });
 };
+
+export const fetchCartItems = async () => {
+  const user = auth();
+
+  const cart = await db.cart.findFirst({
+    where: { clerkId: user.userId || "" },
+    select: { numOfItems : true },
+  });
+
+  return cart?.numOfItems || 0;
+};
+

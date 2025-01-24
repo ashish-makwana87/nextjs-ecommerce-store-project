@@ -38,12 +38,8 @@ export const IconBtn = ({ text = "submit" }: submitButtonProps) => {
   const { pending } = useFormStatus();
 
   return (
-    <Button
-      size='icon'
-      variant='ghost'
-      type={text}
-    >
-      {pending ? <TbReload className=' animate-spin' /> : <RiDeleteBinLine/>}
+    <Button size='icon' variant='ghost' type={text}>
+      {pending ? <TbReload className=' animate-spin' /> : <RiDeleteBinLine />}
     </Button>
   );
 };
@@ -81,5 +77,15 @@ export const CardSubmitButton = ({ isFavorite }: { isFavorite: boolean }) => {
         <FaRegHeart />
       )}
     </Button>
+  );
+};
+
+export const ProductSignInBtn = () => {
+  return (
+    <SignInButton mode="modal">
+      <Button type="button" className='capitalize mt-6 md:text-lg' variant='default' size='lg'>
+        sign in
+      </Button>
+    </SignInButton>
   );
 };

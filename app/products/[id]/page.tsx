@@ -46,7 +46,9 @@ async function SingleProductPage({ params }: { params: { id: string } }) {
           <p className='mt-6 text-base lg:text-lg text-muted-foreground'>
             {description}
           </p>
-          <AddToCart productId={id} />
+          <div>
+            <AddToCart productId={id} />
+          </div>
         </div>
       </div>
       <ProductReviews productId={id} />
