@@ -17,10 +17,26 @@ https://nextjs-ecommerce-store-project-peach.vercel.app/
 - Placing an order - Add to cart, update cart items, review final order details and place order.
 - Orders page to view all past orders.
 
+**Products Page**
+
 <a href='https://nextjs-ecommerce-store-project-peach.vercel.app/' target='_blank'>
 <img src='/public/e1.JPG' width='700' alt='project image'>
 </a>
 
+**Clerk Middleware**
+
 <a href='https://nextjs-ecommerce-store-project-peach.vercel.app/' target='_blank'>
 <img src='/public/e2.JPG' width='700' alt='project image'>
+</a>
+
+**Admin Dashboard**
+
+<a href='https://nextjs-ecommerce-store-project-peach.vercel.app/' target='_blank'>
+<img src='/public/e3.JPG' width='700' alt='project image'>
+</a>
+
+**Admin Dashboard**
+
+<a href='https://nextjs-ecommerce-store-project-peach.vercel.app/' target='_blank'>
+<img src='/public/e4.JPG' width='700' alt='project image'>
 </a>
