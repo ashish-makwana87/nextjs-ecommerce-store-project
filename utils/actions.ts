@@ -400,7 +400,7 @@ const updateOrCreateCartItem = async ({
   return cartItem;
 };
 
-const updateCart = async (cart: Cart) => {
+export const updateCart = async (cart: Cart) => {
   const cartItems = await db.cartItem.findMany({
     where: { cartId: cart.id },
     include: { product: true },
@@ -449,3 +449,9 @@ export const addToCartAction = async (prevState: any, formData: FormData) => {
 
   redirect("/cart");
 };
+
+
+export const createOrderAction = async(prevState: any, formData: FormData):Promise<{message: string}> => {
+
+return {message: 'abc'}; 
+}
