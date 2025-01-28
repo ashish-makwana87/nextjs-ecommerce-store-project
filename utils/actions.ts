@@ -504,3 +504,21 @@ export const updateCartItemAction = async ({
     return renderError(error);
   }
 };
+
+
+export const createOrderAction = async (prevState: any, formData: FormData) => {
+
+  console.log(prevState);
+  console.log(formData);
+  
+  
+
+try {
+  
+return {message: 'Order placed successfully'}
+
+} catch (error) {
+  return renderError(error)
+}
+
+}
