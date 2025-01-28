@@ -404,6 +404,7 @@ export const updateCart = async (cart: Cart) => {
   const cartItems = await db.cartItem.findMany({
     where: { cartId: cart.id },
     include: { product: true },
+    orderBy: { createdAt: "asc" },
   });
 
   let numOfItems = 0;
@@ -430,7 +431,7 @@ export const updateCart = async (cart: Cart) => {
     include: includeProductClause,
   });
 
-  return currentCart;
+  return { cartItems, currentCart };
 };
 
 export const addToCartAction = async (prevState: any, formData: FormData) => {
@@ -455,6 +456,7 @@ export const removeCartItemAction = async (
   formData: FormData
 ) => {
   const user = await getClerkId();
+
   try {
     const cart = await fetchOrCreateCart({
       userId: user.id,
@@ -469,7 +471,7 @@ export const removeCartItemAction = async (
         cartId: cart.id,
       },
     });
-
+    await updateCart(cart);
     revalidatePath("/cart");
     return { message: "Product removed from cart" };
   } catch (error) {
@@ -501,11 +503,4 @@ export const updateCartItemAction = async ({
   } catch (error) {
     return renderError(error);
   }
-};
-
-export const createOrderAction = async (
-  prevState: any,
-  formData: FormData
-): Promise<{ message: string }> => {
-  return { message: "abc" };
 };
