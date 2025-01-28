@@ -328,17 +328,6 @@ export const findExistingReview = async (productId: string) => {
   return db.review.findFirst({ where: { productId, clerkId: user.id } });
 };
 
-export const fetchCartItems = async () => {
-  const user = auth();
-
-  const cart = await db.cart.findFirst({
-    where: { clerkId: user.userId || "" },
-    select: { numOfItems: true },
-  });
-
-  return cart?.numOfItems || 0;
-};
-
 export const fetchProduct = async (productId: string) => {
   const product = await db.product.findUnique({ where: { id: productId } });
 
@@ -373,6 +362,17 @@ export const fetchOrCreateCart = async ({
   }
 
   return cart;
+};
+
+export const fetchCartItems = async () => {
+  const user = auth();
+
+  const cart = await db.cart.findFirst({
+    where: { clerkId: user.userId || "" },
+    select: { numOfItems: true },
+  });
+
+  return cart?.numOfItems || 0;
 };
 
 const updateOrCreateCartItem = async ({
@@ -450,8 +450,62 @@ export const addToCartAction = async (prevState: any, formData: FormData) => {
   redirect("/cart");
 };
 
+export const removeCartItemAction = async (
+  prevState: any,
+  formData: FormData
+) => {
+  const user = await getClerkId();
+  try {
+    const cart = await fetchOrCreateCart({
+      userId: user.id,
+      errorOnFailure: true,
+    });
 
-export const createOrderAction = async(prevState: any, formData: FormData):Promise<{message: string}> => {
+    const cartItemId = formData.get("id") as string;
 
-return {message: 'abc'}; 
-}
+    await db.cartItem.delete({
+      where: {
+        id: cartItemId,
+        cartId: cart.id,
+      },
+    });
+
+    revalidatePath("/cart");
+    return { message: "Product removed from cart" };
+  } catch (error) {
+    return renderError(error);
+  }
+};
+
+export const updateCartItemAction = async ({
+  cartItemId,
+  amount,
+}: {
+  cartItemId: string;
+  amount: number;
+}) => {
+  try {
+    const user = await getClerkId();
+    const cart = await fetchOrCreateCart({
+      userId: user.id,
+      errorOnFailure: true,
+    });
+
+    await db.cartItem.update({
+      where: { id: cartItemId, cartId: cart.id },
+      data: { amount },
+    });
+    await updateCart(cart);
+    revalidatePath("/cart");
+    return { message: "Cart updated" };
+  } catch (error) {
+    return renderError(error);
+  }
+};
+
+export const createOrderAction = async (
+  prevState: any,
+  formData: FormData
+): Promise<{ message: string }> => {
+  return { message: "abc" };
+};

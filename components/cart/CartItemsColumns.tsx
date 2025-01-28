@@ -33,16 +33,14 @@ export const SecondColumn = ({
   productId: string;
 }) => {
   return (
-    <div>
+    <div className='md:w-44'>
       <Link
         href={`/products/${productId}`}
         className='font-medium tracking-wide capitalize hover:underline'
       >
         {title}
       </Link>
-      <h6 className='font-medium tracking-wide capitalize text-xs'>
-        {company}
-      </h6>
+      <h6 className='tracking-wide capitalize text-sm mt-1'>{company}</h6>
     </div>
   );
 };

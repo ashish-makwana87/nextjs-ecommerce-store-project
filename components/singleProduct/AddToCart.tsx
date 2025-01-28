@@ -5,7 +5,7 @@ import { useAuth } from "@clerk/nextjs";
 import SelectProductAmount, { Mode } from "./SelectProductAmount";
 import FormContainer from "../form/FormContainer";
 import { addToCartAction } from "@/utils/actions";
-import { ProductSignInBtn } from "../form/Buttons";
+import { ProductSignInBtn, SubmitBtn } from "../form/Buttons";
 
 function AddToCart({ productId }: { productId: string }) {
   const [amount, setAmount] = useState(1);
@@ -22,14 +22,11 @@ function AddToCart({ productId }: { productId: string }) {
         <FormContainer action={addToCartAction}>
           <input type='hidden' name='productId' value={productId} />{" "}
           <input type='hidden' name='amount' value={amount} />
-          <Button
-            type='submit'
-            variant='default'
+          <SubmitBtn
+            text='add to cart'
             size='lg'
             className='capitalize mt-6 md:text-base'
-          >
-            Add to Cart
-          </Button>
+          />
         </FormContainer>
       ) : (
         <ProductSignInBtn />

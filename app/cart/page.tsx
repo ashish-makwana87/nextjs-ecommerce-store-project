@@ -1,7 +1,7 @@
 import CartInfo from "@/components/cart/CartInfo";
 import CartItemsList from "@/components/cart/CartItemsList";
 import SectionTitle from "@/components/global/SectionTitle";
-import { fetchOrCreateCart, updateCart } from "@/utils/actions";
+import { fetchOrCreateCart } from "@/utils/actions";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
@@ -11,11 +11,14 @@ async function CartPage() {
   const { userId } = auth();
   if (!userId) redirect("/");
 
-  const previousCart = await fetchOrCreateCart({ userId });
-  const cart = await updateCart(previousCart);
+  const cart = await fetchOrCreateCart({ userId });
 
   if (cart.numOfItems === 0) {
-    return <SectionTitle text='your cart is empty' />;
+    return (
+      <div className='alignment mt-10 md:mt-20'>
+        <SectionTitle text='your cart is empty' />
+      </div>
+    );
   }
 
   return (

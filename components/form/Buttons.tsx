@@ -10,18 +10,25 @@ import { RiDeleteBinLine } from "react-icons/ri";
 type btnSize = "sm" | "default" | "lg";
 
 type submitButtonProps = {
-  text?: "submit" | "button" | "reset" | undefined;
+  text?: string;
   size?: btnSize;
+  className?: string;
 };
 
 export const SubmitBtn = ({
-  text = "submit",
   size = "lg",
+  text = "submit",
+  className = "",
 }: submitButtonProps) => {
   const { pending } = useFormStatus();
 
   return (
-    <Button type={text} size={size} disabled={pending} className=' capitalize'>
+    <Button
+      type='submit'
+      size={size}
+      disabled={pending}
+      className={`capitalize ${className}`}
+    >
       {pending ? (
         <>
           <TbReload className='mr-2 w-4 h-4 animate-spin' />
