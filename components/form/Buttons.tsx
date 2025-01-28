@@ -41,11 +41,11 @@ export const SubmitBtn = ({
   );
 };
 
-export const IconBtn = ({ text = "submit" }: submitButtonProps) => {
+export const IconBtn = () => {
   const { pending } = useFormStatus();
 
   return (
-    <Button size='icon' variant='ghost' type={text}>
+    <Button size='icon' variant='ghost' type='submit'>
       {pending ? <TbReload className=' animate-spin' /> : <RiDeleteBinLine />}
     </Button>
   );

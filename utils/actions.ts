@@ -510,11 +510,10 @@ export const createOrderAction = async (prevState: any, formData: FormData) => {
 
   console.log(prevState);
   console.log(formData);
-  
-  
 
 try {
-  
+  const user = await getClerkId();
+  const cart = await fetchOrCreateCart({userId: user.id , errorOnFailure: true})
 return {message: 'Order placed successfully'}
 
 } catch (error) {
