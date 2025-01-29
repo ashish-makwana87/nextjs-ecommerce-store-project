@@ -505,19 +505,52 @@ export const updateCartItemAction = async ({
   }
 };
 
-
 export const createOrderAction = async (prevState: any, formData: FormData) => {
+  try {
+    const user = await getClerkId();
 
-  console.log(prevState);
-  console.log(formData);
+    const cart = await fetchOrCreateCart({
+      userId: user.id,
+      errorOnFailure: true,
+    });
 
-try {
+    await db.order.create({
+      data: {
+        clerkId: user.id,
+        products: cart.numOfItems,
+        orderTotal: cart.orderTotal,
+        shipping: cart.shipping,
+        tax: cart.tax,
+        email: user.emailAddresses[0].emailAddress,
+      },
+    });
+
+    await db.cart.delete({ where: { id: cart.id } });
+  } catch (error) {
+    console.log(error);
+
+    return renderError(error);
+  }
+
+  redirect("/orders");
+};
+
+export const fetchUserOrders = async () => {
   const user = await getClerkId();
-  const cart = await fetchOrCreateCart({userId: user.id , errorOnFailure: true})
-return {message: 'Order placed successfully'}
+  const orders = await db.order.findMany({
+    where: { clerkId: user.id, isPaid: true },
+    orderBy: { createdAt: "desc" },
+  });
 
-} catch (error) {
-  return renderError(error)
-}
+  return orders;
+};
 
-}
+export const fetchAdminOrders = async () => {
+  await getAdminUser();
+  const orders = await db.order.findMany({
+    where: { isPaid: true },
+    orderBy: { createdAt: "desc" },
+  });
+
+  return orders;
+};

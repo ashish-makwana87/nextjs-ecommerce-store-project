@@ -1,6 +1,5 @@
 import { IconBtn } from "@/components/form/Buttons";
 import FormContainer from "@/components/form/FormContainer";
-import EmptyList from "@/components/global/EmptyList";
 import SectionTitle from "@/components/global/SectionTitle";
 import ReviewCard from "@/components/reviews/ReviewCard";
 import { deleteReviewAction, fetchProductReviewsByUser } from "@/utils/actions";
@@ -10,7 +9,9 @@ async function ReviewsPage() {
   const reviews = await fetchProductReviewsByUser();
 
   if (reviews.length < 1) {
-    return <EmptyList text='You have no reviews yet' />;
+    return <div className='alignment mt-10 md:mt-20'>
+    <SectionTitle text='No items found' />
+  </div>
   }
 
   return (

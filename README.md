@@ -7,10 +7,10 @@ https://nextjs-ecommerce-store-project-peach.vercel.app/
 
 **Key Features:**
 
-- Clerk Authentication for non-public routes.
+- Clerk Authentication for user registration and login.
 - Supabase db models set up with Prisma.
 - Admin only dashboard to create, delete and update products, and view sales statistics.
-- User (logged in) pages to display favorite products, reviews, and orders.
+- User pages to display favorite products, reviews, and orders.
 - Filter products using search input.
 - Functionality to add product as a favorite. View them all in Favorite page.
 - Functionality to write reviews. View them all in Review page.
@@ -39,4 +39,16 @@ https://nextjs-ecommerce-store-project-peach.vercel.app/
 
 <a href='https://nextjs-ecommerce-store-project-peach.vercel.app/' target='_blank'>
 <img src='/public/e4.JPG' width='700' alt='project image'>
+</a>
+
+**Cart**
+
+<a href='https://nextjs-ecommerce-store-project-peach.vercel.app/' target='_blank'>
+<img src='/public/e5.JPG' width='700' alt='project image'>
+</a>
+
+**Product Reviews**
+
+<a href='https://nextjs-ecommerce-store-project-peach.vercel.app/' target='_blank'>
+<img src='/public/e6.JPG' width='700' alt='project image'>
 </a>
